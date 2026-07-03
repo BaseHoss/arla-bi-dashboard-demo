@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Arla Brand Intelligence Dashboard — Power BI Demo</title>
 <style>
   :root{
@@ -94,6 +95,50 @@
   table.pbimx td{padding:3px 6px; border-bottom:1px solid #EEF1F3; color:var(--body);}
   table.pbimx tr:nth-child(even) td{background:#F7F9FA;}
   .hide{display:none !important;}
+
+  /* ================= MOBILE (≤820px) — desktop untouched ================= */
+  @media (max-width: 820px){
+    html,body{background:var(--surface); overflow:auto; height:auto;}
+    #stage{position:relative; top:auto; left:auto; width:100%; height:auto; min-height:100svh;
+      transform:none !important; box-shadow:none; overflow:visible;}
+    #hdr{height:auto; flex-wrap:wrap; padding:8px 10px; gap:8px; row-gap:6px;}
+    #hdr img.logo{height:26px;}
+    #hdr .ttl b{font-size:13px; white-space:normal;}
+    #hdr .spacer{display:none;}
+    .slicer{flex-direction:column;}
+    .slicer select{min-width:72px; max-width:96px; font-size:11px;}
+    .vswitch{margin-left:0;}
+    #shell{flex-direction:column;}
+    #rail{width:100%; flex-direction:row; align-items:center; overflow-x:auto; overflow-y:hidden;
+      padding:6px 8px; gap:6px; -webkit-overflow-scrolling:touch;}
+    #rail .sect{display:none;}
+    .navbtn{flex:none; border-left:0; border-bottom:3px solid transparent; border-radius:5px; padding:7px 10px;}
+    .navbtn.on{border-left:0; border-bottom-color:var(--sky);}
+    .navbtn small{display:none;}
+    .ucbtn{flex:none; padding:7px 9px;}
+    .ucbtn small{display:none;}
+    #resetBtn{margin-top:0; flex:none; padding:7px 9px;}
+    #content{overflow:visible; padding:8px;}
+    .page.on{min-height:0;}
+    .pfbar{flex-wrap:wrap; row-gap:5px;}
+    .kpirow{flex-wrap:wrap;}
+    .kpirow .card{flex:1 1 44%; min-width:44%;}
+    .kpi .val{font-size:19px; white-space:normal;}
+    .grid{grid-template-columns:1fr !important; grid-auto-rows:auto !important; flex:none !important;}
+    .viz{min-height:0;}
+    .viz svg{height:215px; flex:none;}
+    .viz > div[id]{max-height:260px;}
+    .rowsplit{flex-direction:column;}
+    .rowsplit svg{width:100% !important; height:200px;}
+    .minis{flex-direction:row; width:100%; gap:6px;}
+    .mini{flex:1;}
+    .viz .pf{position:static !important; margin:4px 0; flex-wrap:wrap;}
+    #narr > div{flex-wrap:wrap;}
+    #narr > div > div{max-width:100% !important;}
+    #ftr{height:auto; padding:6px 10px; flex-wrap:wrap;}
+    #ftr .note{white-space:normal; font-size:8px;}
+    table.pbimx{font-size:9px;}
+  }
 </style>
 </head>
 <body>
@@ -398,12 +443,12 @@ function factor(){return D.markets[S.mk]*D.brands[S.br]*D.cats[S.ct];}
 function series(arr){const f=factor();return arr.map((v,i)=>v*f*(1+((i*7+3)%5-2)*0.004));}
 const tip=$("#tip");
 function bindTip(el,html){el.addEventListener("mousemove",e=>{tip.innerHTML=html;tip.style.display="block";
-  const r=$("#stage").getBoundingClientRect(),sc=r.width/1280;
-  tip.style.left=Math.min((e.clientX-r.left)/sc+14,1080)+"px";tip.style.top=((e.clientY-r.top)/sc-10)+"px";});
+  const st=$("#stage"),r=st.getBoundingClientRect(),sc=r.width/st.offsetWidth||1;
+  tip.style.left=Math.min((e.clientX-r.left)/sc+14,st.offsetWidth-210)+"px";tip.style.top=((e.clientY-r.top)/sc-10)+"px";});
  el.addEventListener("mouseleave",()=>tip.style.display="none");}
 function svgEl(tag,at){const e=document.createElementNS("http://www.w3.org/2000/svg",tag);for(const k in at)e.setAttribute(k,at[k]);return e;}
 function clearSVG(id){const s=$("#"+id);while(s.firstChild)s.removeChild(s.firstChild);const b=s.getBoundingClientRect();
-  const sc=$("#stage").getBoundingClientRect().width/1280;return {s,w:b.width/sc||600,h:b.height/sc||210};}
+  const st=$("#stage");const sc=st.getBoundingClientRect().width/st.offsetWidth||1;return {s,w:b.width/sc||600,h:b.height/sc||210};}
 function txt(s,x,y,t,sz,col,anch,w){const e=svgEl("text",{x,y,"font-size":sz,fill:col,"text-anchor":anch||"start","font-family":"Segoe UI, Arial","font-weight":w||400});e.textContent=t;s.appendChild(e);return e;}
 
 function combo(id,labels,bars,line,linePY,flight,opts){
@@ -738,8 +783,8 @@ function resetView(){S.mk="All markets";S.ct="All categories";S.br="All brands";
   $$(".ucbtn").forEach(b=>b.classList.remove("on"));$("#narr").style.display="none";buildSegs();render();}
 
 /* ===================== INIT ===================== */
-function fit(){const sc=Math.min(innerWidth/1300,innerHeight/740,1.15);
-  $("#stage").style.transform=`translate(-50%,-50%) scale(${sc})`;}
+function fit(){const st=$("#stage");if(matchMedia("(max-width: 820px)").matches){st.style.transform="none";return;}
+  const sc=Math.min(innerWidth/1300,innerHeight/740,1.15);st.style.transform=`translate(-50%,-50%) scale(${sc})`;}
 function buildSegs(){
   seg("segKpi",["Brand equity","Awareness","Consideration","Preference","NPS"],S.bizKpi,v=>{S.bizKpi=v;buildSegs();render();});
   seg("segSalesMetric",["Value","Volume"],S.salesMetric,v=>{S.salesMetric=v;buildSegs();render();});
