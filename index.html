@@ -102,6 +102,15 @@
   table.pbimx td{padding:3px 6px; border-bottom:1px solid #EEF1F3; color:var(--body);}
   table.pbimx tr:nth-child(even) td{background:#F7F9FA;}
   .hide{display:none !important;}
+  .uctag{display:inline-block; font-size:8.5px; font-weight:700; color:#fff; background:var(--sky); border-radius:3px; padding:2px 6px; text-transform:uppercase; letter-spacing:.4px;}
+  .uchead{background:#F4FAFD; border:1px solid #CFE6F5; border-left:4px solid var(--sky); border-radius:8px; padding:8px 13px; flex:none;}
+  .uchead h4{font-size:13px; color:var(--navy); margin:4px 0 1px; line-height:1.2;}
+  .uchead .ucobj{font-size:9.5px; color:var(--hgrey);}
+  .ucsteps{display:flex; gap:7px; margin:7px 0 5px; flex-wrap:wrap;}
+  .ucstep{flex:1; min-width:160px; background:#fff; border:1px solid #DCEAF2; border-radius:6px; padding:5px 8px; font-size:9px; color:var(--body); line-height:1.35;}
+  .ucstep b{color:var(--petrol);}
+  .ucsig{display:flex; gap:14px; font-size:9px; flex-wrap:wrap;}
+  .ucsig .good{color:var(--green);} .ucsig .flag{color:var(--red);}
 
   /* ================= MOBILE (≤820px) — desktop untouched ================= */
   @media (max-width: 820px){
@@ -177,10 +186,10 @@
       <button class="navbtn" data-pg="web">Web Analytics<small>arla.com · GA4</small></button>
       <button class="navbtn" data-pg="comp">Competitive<small>monitoring & analysis</small></button>
       <button class="navbtn" data-pg="brand">Brand Health<small>Kantar BHT</small></button>
-      <div class="sect">Use cases (bookmarks)</div>
-      <button class="ucbtn" data-uc="UC1">UC1 · Media → Sales<small>Ramadan impact on Puck</small></button>
-      <button class="ucbtn" data-uc="UC2">UC2 · Growth diagnosis<small>Soft vs LY — why?</small></button>
-      <button class="ucbtn" data-uc="UC3">UC3 · Brand building<small>BHT × media flights</small></button>
+      <div class="sect">Use cases (test views)</div>
+      <button class="ucbtn" data-pg="uc1">UC1 · Volume vs price<small>Ramadan media test</small></button>
+      <button class="ucbtn" data-pg="uc2">UC2 · Distribution vs brand<small>Soft YoY diagnosis</small></button>
+      <button class="ucbtn" data-pg="uc3">UC3 · Comms → sales lag<small>Brand payback window</small></button>
       <button id="resetBtn">⟲ Reset view</button>
     </div>
     <div id="content">
@@ -323,6 +332,80 @@
     <span class="note" id="ftrNote"></span>
     <img src="data:image/png;base64,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" alt="Consumer Experience">
   </div>
+  <!-- ==================== USE CASE 1 ==================== -->
+      <div class="page" id="pg-uc1">
+        <div class="uchead">
+          <span class="uctag">Use case 1 · test</span>
+          <h4>Did Ramadan media spend move volume, or just price and mix?</h4>
+          <div class="ucobj">Objective — confirm the Feb–Mar media step-up drove real demand, not just value inflation.</div>
+          <div class="ucsteps">
+            <div class="ucstep"><b>1.</b> Set media view to <b>Split by channel</b> — note which channels spiked in Feb–Mar.</div>
+            <div class="ucstep"><b>2.</b> Switch the line <b>Sales value → Sales volume</b>. Volume rising with spend = media working; flat volume while value climbs = price-led.</div>
+            <div class="ucstep"><b>3.</b> Switch the line to <b>Price per kg</b>. A rising price over the window would explain a value/volume gap.</div>
+            <div class="ucstep"><b>4.</b> Cross-check <b>MTD / YTD / MAT</b> — MTD should show the sharpest lift if Ramadan timing is captured.</div>
+          </div>
+          <div class="ucsig"><span class="good">&#10003; Good: volume &amp; value move together in the spike; price per kg stays roughly flat.</span><span class="flag">&#9650; Red flag: value up, volume flat, price up — a price-driven illusion of media effectiveness.</span></div>
+        </div>
+        <div class="grid rows" style="grid-template-columns:1fr; grid-auto-rows:300px;">
+          <div class="viz"><h3>Sales trend vs media spend</h3><div class="sub">Bars: media spend by selected view (AED K) · Line: selected sales metric</div>
+            <div class="pf" style="position:absolute; right:10px; top:7px; gap:5px;"><select id="uc1_media"></select><select id="uc1_line"></select></div>
+            <div class="rowsplit"><div class="minis" id="uc1_minis"></div><svg id="uc1_combo"></svg></div></div>
+        </div>
+      </div>
+      <!-- ==================== USE CASE 2 ==================== -->
+      <div class="page" id="pg-uc2">
+        <div class="uchead">
+          <span class="uctag">Use case 2 · test</span>
+          <h4>Is softer YoY growth a distribution problem or a brand problem?</h4>
+          <div class="ucobj">Objective — trace a YoY growth shortfall back to retail execution vs weakening brand health.</div>
+          <div class="ucsteps">
+            <div class="ucstep"><b>1.</b> Cycle the KPI through <b>Awareness, Consideration, Perception, Salience, Brand communication</b>. Note any KPI flat/declining while spend rises.</div>
+            <div class="ucstep"><b>2.</b> Check <b>Retail sell-out</b> — shortfall in a few retailers or spread evenly? Compare online (Noon, Talabat) vs in-store.</div>
+            <div class="ucstep"><b>3.</b> Check <b>Promo vs non-promo</b> — rising promo share with soft growth = volume bought through discounting.</div>
+            <div class="ucstep"><b>4.</b> On the <b>SKU table</b>, filter for OOS risk / heavy promo — a stock-out on a fast SKU can explain a soft month alone.</div>
+          </div>
+          <div class="ucsig"><span class="good">&#10003; Good: KPIs steady, promo share stable, no OOS on top SKUs — a demand/distribution gap to investigate.</span><span class="flag">&#9650; Red flag: KPIs also softening — the fix is upstream in messaging/media, not merchandising.</span></div>
+        </div>
+        <div class="grid rows" style="grid-template-columns:1fr 1fr; grid-auto-rows:224px;">
+          <div class="viz"><h3><em id="uc2_kpiName">Awareness</em> vs media spend</h3><div class="sub">Bars: media spend (AED K) · Line: selected brand KPI (Kantar BHT)</div>
+            <div class="pf" style="position:absolute; right:10px; top:7px;"><select id="uc2_kpiSel"></select></div>
+            <svg id="uc2_kpiSvg"></svg></div>
+          <div class="viz"><h3>Retail sell-out by retailer · <em id="uc2_retScope">YTD</em> <span class="badge" style="margin-left:4px; vertical-align:middle;">EPOS</span></h3>
+            <div class="sub"><span style="color:var(--petrol);">&#9632;</span> In-store &nbsp; <span style="color:#E0722F;">&#9632;</span> Online-only &nbsp;·&nbsp; AED K</div>
+            <div style="display:flex; gap:9px; align-items:center; margin:3px 0 1px;">
+              <div class="pf"><label>Retailer</label><select id="uc2_ret"><option>All retailers</option><option>Panda</option><option>Othaim</option><option>Lulu</option><option>Carrefour</option><option>Danube</option><option>Noon</option><option>Talabat</option></select></div>
+              <div class="pf"><label>Promo</label><select id="uc2_promo"><option>All sales</option><option>Promo</option><option>Non-promo</option></select></div>
+              <div class="pf"><label>Channel</label><select id="uc2_chan"><option>All</option><option>In-store</option><option>Online</option></select></div>
+            </div>
+            <svg id="uc2_retSvg"></svg></div>
+          <div class="viz"><h3>Promo vs non-promo sales · <em>monthly</em> <span class="badge" style="margin-left:4px; vertical-align:middle;">EPOS</span></h3><div class="sub">Promo share of sell-out — promo dependency watch</div><svg id="uc2_promoSvg"></svg></div>
+          <div class="viz" style="overflow:hidden;"><h3>Top SKUs by rate of sale · <em id="uc2_skuScope">YTD · all Puck</em> <span class="badge" style="margin-left:4px; vertical-align:middle;">EPOS</span></h3><div id="uc2_skus" style="overflow:auto; flex:1; margin-top:4px;"></div></div>
+        </div>
+      </div>
+      <!-- ==================== USE CASE 3 ==================== -->
+      <div class="page" id="pg-uc3">
+        <div class="uchead">
+          <span class="uctag">Use case 3 · test</span>
+          <h4>How long does a brand communication uplift take to reflect in sales?</h4>
+          <div class="ucobj">Objective — quantify the lag between a brand communication uplift and the sales uplift (the brand payback window).</div>
+          <div class="ucsteps">
+            <div class="ucstep"><b>1.</b> Set the KPI to <b>Brand communication</b> and find the sharpest step-up (an inflection, not drift). Record its month.</div>
+            <div class="ucstep"><b>2.</b> On sales trend, set the line to <b>Sales value</b>, then <b>Sales volume</b>, and find the month sales visibly accelerates.</div>
+            <div class="ucstep"><b>3.</b> Count the months between the comms inflection and the sales inflection — the observed lag.</div>
+            <div class="ucstep"><b>4.</b> Set sales media view to <b>Split by channel</b> — check whether a paid push (TV/Social) is driving a faster, separate response.</div>
+          </div>
+          <div class="ucsig"><span class="good">&#10003; Good: a consistent, repeatable lag (e.g. 2–3 months) across cycles — the brand payback window.</span><span class="flag">&#9650; Red flag: no pattern — sales moves independently, or only alongside paid activation.</span></div>
+        </div>
+        <div class="grid rows" style="grid-template-columns:1fr 1fr; grid-auto-rows:300px;">
+          <div class="viz"><h3><em id="uc3_kpiName">Brand communication</em> vs media spend</h3><div class="sub">Bars: media spend (AED K) · Line: selected brand KPI (Kantar BHT)</div>
+            <div class="pf" style="position:absolute; right:10px; top:7px;"><select id="uc3_kpiSel"></select></div>
+            <svg id="uc3_kpiSvg"></svg></div>
+          <div class="viz"><h3>Sales trend vs media spend</h3><div class="sub">Bars: media spend by selected view (AED K) · Line: selected sales metric</div>
+            <div class="pf" style="position:absolute; right:10px; top:7px; gap:5px;"><select id="uc3_media"></select><select id="uc3_line"></select></div>
+            <svg id="uc3_comboSvg"></svg></div>
+        </div>
+      </div>
+      
   <div id="narr"></div>
   <div id="tip"></div>
 </div>
@@ -333,6 +416,7 @@ const D = {
  months:["Jan-25","Feb-25","Mar-25","Apr-25","May-25","Jun-25","Jul-25","Aug-25","Sep-25","Oct-25","Nov-25","Dec-25","Jan-26","Feb-26","Mar-26","Apr-26","May-26","Jun-26"],
  sales:[3.10,3.35,3.72,3.30,3.18,3.05,2.98,3.12,3.30,3.42,3.55,3.70,3.48,3.95,4.35,3.85,3.66,4.20],
  salesPY:[2.86,3.08,3.42,3.06,2.95,2.83,2.77,2.90,3.06,3.17,3.29,3.42,3.20,3.60,3.95,3.55,3.40,3.88],
+ pricePerKg:[24.2,24.0,23.9,24.3,24.4,24.5,24.6,24.6,24.7,24.8,24.9,25.0,25.1,24.8,24.7,25.2,25.3,25.4],
  media:[980,1240,1610,890,760,700,640,720,910,1050,1180,1420,1120,1780,1950,1210,980,1800],
  mediaChShare:{
    "TV":[0.362,0.414,0.407,0.336,0.334,0.333,0.330,0.325,0.317,0.309,0.300,0.289,0.280,0.347,0.340,0.259,0.253,0.248],
@@ -351,7 +435,10 @@ const D = {
       "Awareness":[75.9,76.0,76.3,76.2,76.1,76.2,76.4,76.5,76.7,76.8,76.9,77.1,77.0,77.6,78.1,77.9,77.8,78.0],
       "Consideration":[60.5,60.8,61.2,61.0,60.9,61.1,61.3,61.4,61.7,61.9,62.0,62.3,62.1,63.0,63.8,63.5,63.4,64.0],
       "Preference":[55.8,55.9,56.2,56.1,56.0,56.2,56.4,56.5,56.7,56.8,56.9,57.1,57.0,57.6,58.2,58.0,57.9,58.0],
-      "NPS":[31.0,31.2,31.6,31.4,31.3,31.5,31.8,31.9,32.2,32.4,32.5,32.8,32.6,33.4,34.2,33.9,33.8,34.0]},
+      "NPS":[31.0,31.2,31.6,31.4,31.3,31.5,31.8,31.9,32.2,32.4,32.5,32.8,32.6,33.4,34.2,33.9,33.8,34.0],
+      "Perception":[58,58,59,59,58,59,60,60,61,61,62,62,63,64,64,65,65,66],
+      "Salience":[64,64,65,65,64,65,66,66,67,67,68,68,69,70,70,71,71,72],
+      "Brand communication":[54,54,55,55,54,55,55,56,56,57,57,62,63,64,64,65,65,66]},
  bhtVars:{Awareness:[78,76],Familiarity:[71,70],Consideration:[64,61],Preference:[58,56],Trust:[74,73],Advocacy:[52,50]},
  bhtTracker:{
   funnel:{months:["Top of mind","Spontaneous","Aided aware","Tried"],series:{"Puck":[29,72,99,98],"Almarai":[37,87,99,99],"Kiri":[15,60,97,96]}},
@@ -454,9 +541,78 @@ const CH={TV:"#0F9ED5",OOH:"#2FA84F",Social:"#F2A900",Display:"#6C4FB0",Ecom:"#E
 const CHNAMES=["TV","OOH","Social","Display","Ecom"];
 const CHSHARE={TV:0.34,OOH:0.10,Social:0.22,Display:0.18,Ecom:0.16};
 const SOVCOL={Almarai:"#E0722F",Puck:"#156082",Lurpak:"#0F9ED5",President:"#7E4A5A",NADEC:"#9A9A3E",Arla:"#156082",Others:"#B9BEC4"};
-function syncBizControls(){const set=(id,v)=>{const e=$("#"+id);if(e)e.value=v;};
+function syncControls(){const set=(id,v)=>{const e=$("#"+id);if(e)e.value=v;};
   set("pfSalesMedia",S.bizMediaView);set("pfSalesLine",S.bizSalesMetric);
-  set("pfKpiMedia",S.bizKpiMediaView);set("pfKpiMetric",S.bizKpi);}
+  set("pfKpiMedia",S.bizKpiMediaView);set("pfKpiMetric",S.bizKpi);
+  set("uc1_media",S.uc1Media);set("uc1_line",S.uc1Line);
+  set("uc2_kpiSel",S.uc2Kpi);set("uc2_ret",S.pfRetailer);set("uc2_promo",S.pfPromo);set("uc2_chan",S.pfRetChan);
+  set("uc3_kpiSel",S.uc3Kpi);set("uc3_media",S.uc3Media);set("uc3_line",S.uc3Line);}
+function medBundle(){const med=series(D.media);const medW=win(med),mbc={};
+  CHNAMES.forEach(cn=>{const sh=win(D.mediaChShare[cn]);mbc[cn]=medW.map((v,i)=>Math.round(v*sh[i]));});
+  return {medW,mbc};}
+function lineForMetric(metric){
+  const sal=series(D.sales),salPY=series(D.salesPY);
+  const vol=series(D.sales.map((v,i)=>Math.round(v*300*(1-i*0.0035))));
+  if(metric==="Sales volume")return {line:win(vol),linePY:null,name:"Sales volume",fmt:v=>Math.round(v).toLocaleString()+"K",lyfmt:v=>Math.round(v).toLocaleString(),lmin:0};
+  if(metric==="Price per kg")return {line:win(D.pricePerKg),linePY:null,name:"Price per kg",fmt:v=>"AED "+v.toFixed(1)+"/kg",lyfmt:v=>v.toFixed(1),lmin:Math.min(...D.pricePerKg)-0.8};
+  return {line:win(sal),linePY:win(salPY),name:"Sales value",fmt:v=>fmtM(v),lyfmt:v=>v.toFixed(1),lmin:0};
+}
+function eposOnlineMean(){const w=win(D.epos.onlineShareM);return Math.round(w.reduce((a,b)=>a+b,0)/w.length);}
+function drawEpos(o){
+  const os={"Panda":0.06,"Othaim":0.05,"Lulu":0.12,"Carrefour":0.15,"Danube":0.05,"Noon":1,"Talabat":1};
+  const online={"Noon":1,"Talabat":1};
+  const chSel=S.pfRetChan,prSel=S.pfPromo;
+  const promoWin=win(D.epos.promoShareM);
+  const promoAvg=promoWin.reduce((a,b)=>a+b,0)/promoWin.length/100;
+  const promoScale=prSel==="Promo"?promoAvg:prSel==="Non-promo"?(1-promoAvg):1;
+  const retTot={};Object.keys(D.epos.retMonthly).forEach(k=>retTot[k]=win(D.epos.retMonthly[k]).reduce((a,b)=>a+b,0));
+  const retBase=S.pfRetailer==="All retailers"?retTot:{[S.pfRetailer]:retTot[S.pfRetailer]};
+  const ret={},retCol=[];
+  Object.entries(retBase).forEach(([k,v])=>{let rv=chSel==="Online"?v*os[k]:chSel==="In-store"?v*(1-os[k]):v;rv=Math.round(rv*promoScale);if(rv>0){ret[k]=rv;retCol.push(online[k]?"#E0722F":C.petrol);}});
+  hbars(o.retSvg,Object.keys(ret).length?ret:{"No retailers in selection":0},retCol.length?retCol:C.petrol);
+  const rs=$("#"+o.retScope);if(rs)rs.textContent=perLbl();
+  {const {s,w,h}=clearSVG(o.promoSvg);const p={l:26,r:8,t:12,b:18};const iw=w-p.l-p.r,ih=h-p.t-p.b;
+   const labs=winLab(),bw=iw/labs.length;
+   const retMod=({"Panda":2,"Othaim":0,"Lulu":3,"Carrefour":5,"Danube":-2,"Noon":10,"Talabat":8})[S.pfRetailer]||0;
+   const chMod=chSel==="Online"?8:chSel==="In-store"?-3:0;
+   const disp=promoWin.map(base=>{const pv=Math.max(4,Math.min(96,base+retMod+chMod));return prSel==="Non-promo"?100-pv:pv;});
+   const mx=Math.max(...disp);
+   disp.forEach((pv,i)=>{s.appendChild(svgEl("rect",{x:p.l+i*bw+bw*0.2,y:p.t,width:bw*0.6,height:ih,rx:2,fill:"#EDEFF1"}));
+     const r=svgEl("rect",{x:p.l+i*bw+bw*0.2,y:p.t+ih*(1-pv/100),width:bw*0.6,height:ih*pv/100,rx:2,fill:(pv===mx)?C.sky:C.petrol});
+     s.appendChild(r);bindTip(r,`<b>${labs[i]}</b><br>${prSel==="Non-promo"?"Non-promo":"Promo"} share: ${pv}%`);
+     if(labs.length<=8||i%2===0)txt(s,p.l+i*bw+bw/2,p.t+ih*(1-pv/100)-3,pv+"%",7.5,C.hgrey,"middle",600);
+     if(labs.length<=8||i%2===0)txt(s,p.l+i*bw+bw/2,h-5,labs[i],7,C.mute,"middle");});}
+  const inc=(a,b)=>a.toLowerCase().includes(b.toLowerCase());
+  const wf=(S.to-S.from+1)/12;
+  let base=D.epos.skus;
+  if(S.pfRetailer!=="All retailers"){const m=base.filter(r=>inc(r[3],S.pfRetailer));if(m.length)base=m;}
+  let skus=base.filter(r=>{const st=r[3];
+    if(prSel==="Promo"&&!(inc(st,"promo")||inc(st,"uplift")))return false;
+    if(prSel==="Non-promo"&&(inc(st,"promo")||inc(st,"uplift")))return false;
+    if(chSel==="Online"&&!(inc(st,"noon")||inc(st,"listing")||inc(st,"online")))return false;
+    return true;});
+  const scope=[S.pfRetailer==="All retailers"?"all Puck":S.pfRetailer,prSel!=="All sales"?prSel:null,chSel!=="All"?chSel:null].filter(Boolean).join(" · ");
+  const sc=$("#"+o.skuScope);if(sc)sc.textContent=perLbl()+" · "+scope;
+  if(!skus.length){mxTable(o.skuTbl,["SKU","Sell-out AED K","RoS/store/wk","Status"],[["No SKUs match the current filters","–","–","Adjust Retailer / Promo / Channel"]]);}
+  else{mxTable(o.skuTbl,["SKU","Sell-out AED K","RoS/store/wk","Status"],skus.map(r=>{const num=parseFloat(String(r[1]).replace(/,/g,""))*wf;return [r[0],Math.round(num).toLocaleString(),r[2],r[3]];}));}
+}
+function ucMinis(id){const sal=series(D.sales),salPY=series(D.salesPY);
+  $("#"+id).innerHTML=["MTD","YTD","MAT"].map(pp=>{
+    const a={MTD:sal[17],YTD:sal.slice(12,18).reduce((x,y)=>x+y,0),MAT:sal.slice(6,18).reduce((x,y)=>x+y,0)}[pp];
+    const b={MTD:salPY[17],YTD:salPY.slice(12,18).reduce((x,y)=>x+y,0),MAT:salPY.slice(6,18).reduce((x,y)=>x+y,0)}[pp];
+    return `<div class="mini"><div class="c">${pp}</div><div class="v">${fmtM(a)}</div><div class="d">▲ ${((a/b-1)*100).toFixed(1)}% vs LY</div></div>`;}).join("");}
+function renderUC1(){syncControls();const {medW,mbc}=medBundle();const L=lineForMetric(S.uc1Line);
+  mediaLineCombo("uc1_combo",{medByCh:mbc,medTot:medW,mediaView:S.uc1Media,line:L.line,linePY:L.linePY,lineName:L.name,lineFmt:L.fmt,lyFmt:L.lyfmt,lmin:L.lmin,flight:winFlight([13,14]),flightLabel:"Ramadan"});
+  ucMinis("uc1_minis");}
+function renderUC2(){syncControls();const {medW,mbc}=medBundle();
+  const bk=D.bht[S.uc2Kpi]||D.bht["Brand equity"];$("#uc2_kpiName").textContent=S.uc2Kpi;
+  mediaLineCombo("uc2_kpiSvg",{medByCh:mbc,medTot:medW,mediaView:"Total media",line:win(bk),linePY:null,lineName:S.uc2Kpi,lineFmt:v=>v.toFixed(1)+" idx",lmin:Math.min(...bk)-1.5,lyFmt:v=>v.toFixed(0)});
+  drawEpos({retSvg:"uc2_retSvg",promoSvg:"uc2_promoSvg",skuTbl:"#uc2_skus",retScope:"uc2_retScope",skuScope:"uc2_skuScope"});}
+function renderUC3(){syncControls();const {medW,mbc}=medBundle();
+  const bk=D.bht[S.uc3Kpi]||D.bht["Brand communication"];$("#uc3_kpiName").textContent=S.uc3Kpi;
+  mediaLineCombo("uc3_kpiSvg",{medByCh:mbc,medTot:medW,mediaView:"Total media",line:win(bk),linePY:null,lineName:S.uc3Kpi,lineFmt:v=>v.toFixed(1)+" idx",lmin:Math.min(...bk)-1.5,lyFmt:v=>v.toFixed(0)});
+  const L=lineForMetric(S.uc3Line);
+  mediaLineCombo("uc3_comboSvg",{medByCh:mbc,medTot:medW,mediaView:S.uc3Media,line:L.line,linePY:L.linePY,lineName:L.name,lineFmt:L.fmt,lyFmt:L.lyfmt,lmin:L.lmin});}
 function mediaLineCombo(id,o){
   const {s,w,h}=clearSVG(id);
   const view=o.mediaView||"Total media";const showLeg=(view==="Split by channel");
@@ -529,7 +685,8 @@ let S={pg:"biz",mk:"All markets",ct:"All categories",br:"All brands",from:6,to:1
        bizKpi:"Brand equity",bizMediaView:"Split by channel",bizSalesMetric:"Sales value",bizKpiMediaView:"Total media",
        bhtMetric:"Consideration",salesMetric:"Value",multiType:"All",webType:"All",
        pfPlat:"All platforms",pfCamp:"All campaigns",pfObj:"All objectives",pfRmRet:"All retailers",pfRmPlc:"All placements",
-       pfRetailer:"All retailers",pfPromo:"All sales",pfRetChan:"All"};
+       pfRetailer:"All retailers",pfPromo:"All sales",pfRetChan:"All",
+       uc1Media:"Split by channel",uc1Line:"Sales value",uc2Kpi:"Awareness",uc3Kpi:"Brand communication",uc3Media:"Split by channel",uc3Line:"Sales value"};
 
 /* ===================== HELPERS ===================== */
 const $=q=>document.querySelector(q), $$=q=>document.querySelectorAll(q);
@@ -717,17 +874,13 @@ function stackedBars(id,labels,totals,segShares,segNames,single){
 }
 
 function renderBiz(){
-  syncBizControls();
-  const sal=series(D.sales),salPY=series(D.salesPY),med=series(D.media);
-  const vol=series(D.sales.map((v,i)=>Math.round(v*300*(1-i*0.0035))));
-  const sAgg=periodAgg(sal),sAggPY=periodAgg(salPY),mAgg=periodAgg(med);
+  syncControls();
+  const {medW,mbc}=medBundle();
+  const sal=series(D.sales),salPY=series(D.salesPY);
+  const sAgg=periodAgg(sal),sAggPY=periodAgg(salPY),mAgg=periodAgg(series(D.media));
   const d=((sAgg/sAggPY-1)*100);
-  const winMonths=S.to-S.from+1;
-  const os={"Panda":0.06,"Othaim":0.05,"Lulu":0.12,"Carrefour":0.15,"Danube":0.05,"Noon":1,"Talabat":1};
-  const online={"Noon":1,"Talabat":1};
-  const onlineWin=win(D.epos.onlineShareM);
-  const onlineMean=Math.round(onlineWin.reduce((a,b)=>a+b,0)/onlineWin.length);
-  const onlineContrib=S.pfRetailer==="All retailers"?onlineMean:Math.round(os[S.pfRetailer]*100);
+  const os1={"Panda":0.06,"Othaim":0.05,"Lulu":0.12,"Carrefour":0.15,"Danube":0.05,"Noon":1,"Talabat":1};
+  const onlineContrib=S.pfRetailer==="All retailers"?eposOnlineMean():Math.round(os1[S.pfRetailer]*100);
   const onlineSub=S.pfRetailer==="All retailers"?"of retail sell-out · EPOS":S.pfRetailer+" · EPOS";
   $("#bizKpis").innerHTML=
     kpi("Sales value · selected period",fmtM(sAgg),Math.abs(d).toFixed(1)+"% vs LY",d>=0)
@@ -736,66 +889,13 @@ function renderBiz(){
    +kpi("Media contribution","34%","0.8 pts vs LY",true,"of total sales")
    +kpi("Arla SOV","36%","2 pts vs SPLY",true,"share of voice")
    +kpi("Online sales contribution",onlineContrib+"%","2.4 pts vs LY",true,onlineSub);
-  $("#bizMinis").innerHTML=["MTD","YTD","MAT"].map(pp=>{
-    const a={MTD:sal[17],YTD:sal.slice(12,18).reduce((x,y)=>x+y,0),MAT:sal.slice(6,18).reduce((x,y)=>x+y,0)}[pp];
-    const b={MTD:salPY[17],YTD:salPY.slice(12,18).reduce((x,y)=>x+y,0),MAT:salPY.slice(6,18).reduce((x,y)=>x+y,0)}[pp];
-    return `<div class="mini"><div class="c">${pp}</div><div class="v">${fmtM(a)}</div><div class="d">▲ ${((a/b-1)*100).toFixed(1)}% vs LY</div></div>`;}).join("");
-  const medW=win(med),mbc={};
-  CHNAMES.forEach(cn=>{const sh=win(D.mediaChShare[cn]);mbc[cn]=medW.map((v,i)=>Math.round(v*sh[i]));});
-  const isVol=S.bizSalesMetric==="Sales volume";
-  mediaLineCombo("bizCombo",{medByCh:mbc,medTot:medW,mediaView:S.bizMediaView,
-    line:isVol?win(vol):win(sal),linePY:isVol?null:win(salPY),
-    lineName:S.bizSalesMetric,lineFmt:isVol?(v=>Math.round(v).toLocaleString()+"K"):(v=>fmtM(v)),
-    lyFmt:isVol?(v=>Math.round(v).toLocaleString()):(v=>v.toFixed(1)),
-    flight:winFlight(S.flight),flightLabel:"Ramadan flight",anno:winAnno(S.anno)});
-  const bk=D.bht[S.bizKpi];$("#bizKpiName").textContent=S.bizKpi;
-  mediaLineCombo("bizKpiCombo",{medByCh:mbc,medTot:medW,mediaView:S.bizKpiMediaView,
-    line:win(bk),linePY:null,
-    lineName:S.bizKpi,lineFmt:v=>v.toFixed(1)+" idx",lmin:Math.min(...bk)-1.5,lyFmt:v=>v.toFixed(0),
-    flight:(S.uc==="UC3"||S.uc==="UC1")?winFlight(S.flight):null,flightLabel:"Ramadan flight",
-    anno:S.uc==="UC3"?winAnno({i:14,t:"+1.7 idx across flight"}):null});
+  ucMinis("bizMinis");
+  const L=lineForMetric(S.bizSalesMetric);
+  mediaLineCombo("bizCombo",{medByCh:mbc,medTot:medW,mediaView:S.bizMediaView,line:L.line,linePY:L.linePY,lineName:L.name,lineFmt:L.fmt,lyFmt:L.lyfmt,lmin:L.lmin});
+  const bk=D.bht[S.bizKpi]||D.bht["Brand equity"];$("#bizKpiName").textContent=S.bizKpi;
+  mediaLineCombo("bizKpiCombo",{medByCh:mbc,medTot:medW,mediaView:S.bizKpiMediaView,line:win(bk),linePY:null,lineName:S.bizKpi,lineFmt:v=>v.toFixed(1)+" idx",lmin:Math.min(...bk)-1.5,lyFmt:v=>v.toFixed(0)});
   sovStack("bizCompSov",D.compSov,SOVCOL);
-  /* ---- EPOS — period-aware, cross-filtered by Retailer / Promo / Channel ---- */
-  const chSel=S.pfRetChan,prSel=S.pfPromo;
-  const promoWin=win(D.epos.promoShareM);
-  const promoAvg=promoWin.reduce((a,b)=>a+b,0)/promoWin.length/100;
-  const promoScale=prSel==="Promo"?promoAvg:prSel==="Non-promo"?(1-promoAvg):1;
-  const retTot={};Object.keys(D.epos.retMonthly).forEach(k=>retTot[k]=win(D.epos.retMonthly[k]).reduce((a,b)=>a+b,0));
-  const retBase=S.pfRetailer==="All retailers"?retTot:{[S.pfRetailer]:retTot[S.pfRetailer]};
-  const ret={},retCol=[];
-  Object.entries(retBase).forEach(([k,v])=>{let rv=chSel==="Online"?v*os[k]:chSel==="In-store"?v*(1-os[k]):v;
-    rv=Math.round(rv*promoScale);if(rv>0){ret[k]=rv;retCol.push(online[k]?"#E0722F":C.petrol);}});
-  hbars("eposRet",Object.keys(ret).length?ret:{"No retailers in selection":0},retCol.length?retCol:C.petrol);
-  const rs=$("#retScope");if(rs)rs.textContent=perLbl();
-  /* promo card — windowed to master period, responds to retailer + channel + promo */
-  {const {s,w,h}=clearSVG("eposPromo");const p={l:26,r:8,t:12,b:18};const iw=w-p.l-p.r,ih=h-p.t-p.b;
-   const labs=winLab(),bw=iw/labs.length;
-   const retMod=({"Panda":2,"Othaim":0,"Lulu":3,"Carrefour":5,"Danube":-2,"Noon":10,"Talabat":8})[S.pfRetailer]||0;
-   const chMod=chSel==="Online"?8:chSel==="In-store"?-3:0;
-   const disp=promoWin.map(base=>{const pv=Math.max(4,Math.min(96,base+retMod+chMod));return prSel==="Non-promo"?100-pv:pv;});
-   const mx=Math.max(...disp);
-   disp.forEach((pv,i)=>{
-     s.appendChild(svgEl("rect",{x:p.l+i*bw+bw*0.2,y:p.t,width:bw*0.6,height:ih,rx:2,fill:"#EDEFF1"}));
-     const r=svgEl("rect",{x:p.l+i*bw+bw*0.2,y:p.t+ih*(1-pv/100),width:bw*0.6,height:ih*pv/100,rx:2,fill:(pv===mx)?C.sky:C.petrol});
-     s.appendChild(r);bindTip(r,`<b>${labs[i]}</b><br>${prSel==="Non-promo"?"Non-promo":"Promo"} share: ${pv}%`);
-     if(labs.length<=8||i%2===0)txt(s,p.l+i*bw+bw/2,p.t+ih*(1-pv/100)-3,pv+"%",7.5,C.hgrey,"middle",600);
-     if(labs.length<=8||i%2===0)txt(s,p.l+i*bw+bw/2,h-5,labs[i],7,C.mute,"middle");});}
-  /* SKU table — filtered by retailer / promo / channel, sell-out scaled to period */
-  const inc=(a,b)=>a.toLowerCase().includes(b.toLowerCase());
-  const wf=winMonths/12;
-  let base=D.epos.skus;
-  if(S.pfRetailer!=="All retailers"){const m=base.filter(r=>inc(r[3],S.pfRetailer));if(m.length)base=m;}
-  let skus=base.filter(r=>{const st=r[3];
-    if(prSel==="Promo"&&!(inc(st,"promo")||inc(st,"uplift")))return false;
-    if(prSel==="Non-promo"&&(inc(st,"promo")||inc(st,"uplift")))return false;
-    if(chSel==="Online"&&!(inc(st,"noon")||inc(st,"listing")||inc(st,"online")))return false;
-    return true;});
-  const scope=[S.pfRetailer==="All retailers"?"all Puck":S.pfRetailer,prSel!=="All sales"?prSel:null,chSel!=="All"?chSel:null].filter(Boolean).join(" · ");
-  const sc=$("#skuScope");if(sc)sc.textContent=perLbl()+" · "+scope;
-  if(!skus.length){mxTable("#eposSkus",["SKU","Sell-out AED K","RoS/store/wk","Status"],[["No SKUs match the current filters","–","–","Adjust Retailer / Promo / Channel"]]);}
-  else{mxTable("#eposSkus",["SKU","Sell-out AED K","RoS/store/wk","Status"],skus.map(r=>{
-    const num=parseFloat(String(r[1]).replace(/,/g,""))*wf;
-    return [r[0],Math.round(num).toLocaleString(),r[2],r[3]];}));}
+  drawEpos({retSvg:"eposRet",promoSvg:"eposPromo",skuTbl:"#eposSkus",retScope:"retScope",skuScope:"skuScope"});
 }
 function renderSales(){
   const sal=series(D.sales),salPY=series(D.salesPY);
@@ -908,35 +1008,19 @@ function renderBrand(){
   grouped("bhtTom",D.bhtTracker.tom);
 }
 function render(){
-  ({biz:renderBiz,sales:renderSales,digital:renderDigital,multi:renderMulti,retail:renderRetail,web:renderWeb,comp:renderComp,brand:renderBrand}[S.pg])();
+  ({biz:renderBiz,sales:renderSales,digital:renderDigital,multi:renderMulti,retail:renderRetail,web:renderWeb,comp:renderComp,brand:renderBrand,uc1:renderUC1,uc2:renderUC2,uc3:renderUC3}[S.pg])();
   $("#ftrNote").textContent=`Filters: ${S.mk} · ${S.ct} · ${S.br} · ${perLbl()} | Sources: Nielsen · media platforms · TV/OOH monitoring · Kantar BHT · GA4 · EPOS retail | Illustrative sample data — demo only | Refreshed: 08 Jul 2026`;
 }
 
 /* ===================== NAV / STATE ===================== */
-const PGNAMES={biz:"Business Performance",sales:"Sales Performance (Nielsen)",digital:"Digital Media — digital only · deep dive",multi:"Multi-Media — online + offline",retail:"Retail Media & eCommerce",web:"Web Analytics — arla.com · GA4",comp:"Competitive Monitoring & Analysis",brand:"Brand Health (Kantar BHT)"};
+const PGNAMES={biz:"Business Performance",sales:"Sales Performance (Nielsen)",digital:"Digital Media — digital only · deep dive",multi:"Multi-Media — online + offline",retail:"Retail Media & eCommerce",web:"Web Analytics — arla.com · GA4",comp:"Competitive Monitoring & Analysis",brand:"Brand Health (Kantar BHT)",uc1:"Use Case 1 — Volume vs price (Ramadan)",uc2:"Use Case 2 — Distribution vs brand",uc3:"Use Case 3 — Comms → sales lag"};
 function goPage(pg){S.pg=pg;$$(".page").forEach(p=>p.classList.remove("on"));$("#pg-"+pg).classList.add("on");
-  $$(".navbtn").forEach(b=>b.classList.toggle("on",b.dataset.pg===pg));
+  $$(".navbtn,.ucbtn").forEach(b=>b.classList.toggle("on",b.dataset.pg===pg));
   $("#pgname").textContent=PGNAMES[pg];$("#content").scrollTop=0;render();}
-function applyUC(id){const u=D.uc[id];S.uc=id;S.flight=u.flight||null;S.anno=u.anno||null;
-  if(u.mk){S.mk=u.mk;$("#slMarket").value=u.mk;}if(u.br){S.br=u.br;$("#slBrand").value=u.br;}
-  if(u.ct){S.ct=u.ct;$("#slCategory").value=u.ct;}
-  if(u.kpi){S.bizKpi=u.kpi;}
-  goPage(u.pg);
-  $$(".ucbtn").forEach(b=>b.classList.toggle("on",b.dataset.uc===id));
-  showNarr(u);}
-function showNarr(u){
-  const id=S.uc, page=$("#pg-"+S.pg), n=$("#narr");
-  page.insertBefore(n,page.firstChild);
-  n.style.display="block";
-  n.innerHTML=`<div style="display:flex;gap:14px;align-items:flex-start;">
-    <div style="flex:none;max-width:230px;"><span class="uctag">Use case ${id.slice(2)}</span><h4>${u.title}</h4><div class="who">${u.who}</div></div>
-    <p style="flex:1;">${u.txt}</p>
-    <button id="narrExit" style="flex:none;">Exit use case ⟲</button></div>`;
-  $("#narrExit").onclick=resetView;}
-function resetView(){S.mk="All markets";S.ct="All categories";S.br="All brands";S.from=6;S.to=17;S.uc=null;S.flight=null;S.anno=null;S.bizKpi="Brand equity";S.bizMediaView="Split by channel";S.bizSalesMetric="Sales value";S.bizKpiMediaView="Total media";
+function resetView(){S.mk="All markets";S.ct="All categories";S.br="All brands";S.from=6;S.to=17;S.bizKpi="Brand equity";S.bizMediaView="Split by channel";S.bizSalesMetric="Sales value";S.bizKpiMediaView="Total media";S.pfRetailer="All retailers";S.pfPromo="All sales";S.pfRetChan="All";
+  S.uc1Media="Split by channel";S.uc1Line="Sales value";S.uc2Kpi="Awareness";S.uc3Kpi="Brand communication";S.uc3Media="Split by channel";S.uc3Line="Sales value";
   $("#slMarket").value="All markets";$("#slCategory").value="All categories";$("#slBrand").value="All brands";
-  $("#slFrom").value=D.months[6];$("#slTo").value=D.months[17];
-  $$(".ucbtn").forEach(b=>b.classList.remove("on"));$("#narr").style.display="none";buildSegs();render();}
+  $("#slFrom").value=D.months[6];$("#slTo").value=D.months[17];buildSegs();render();}
 
 /* ===================== INIT ===================== */
 function fit(){const st=$("#stage");if(matchMedia("(max-width: 820px)").matches){st.style.transform="none";return;}
@@ -960,15 +1044,30 @@ $("#slFrom").onchange=e=>{S.from=D.months.indexOf(e.target.value);if(S.from>S.to
 $("#slTo").onchange=e=>{S.to=D.months.indexOf(e.target.value);if(S.to<S.from){S.from=S.to;$("#slFrom").value=e.target.value;}render();};
 $("#pfWebCat").onchange=()=>render();
 ["Split by channel","Total media","TV","OOH","Social","Display","Ecom"].forEach(o=>$("#pfSalesMedia").insertAdjacentHTML("beforeend",`<option>${o}</option>`));
-["Sales value","Sales volume"].forEach(o=>$("#pfSalesLine").insertAdjacentHTML("beforeend",`<option>${o}</option>`));
+["Sales value","Sales volume","Price per kg"].forEach(o=>$("#pfSalesLine").insertAdjacentHTML("beforeend",`<option>${o}</option>`));
 ["Total media","Split by channel","TV","OOH","Social","Display","Ecom"].forEach(o=>$("#pfKpiMedia").insertAdjacentHTML("beforeend",`<option>${o}</option>`));
-["Brand equity","Awareness","Consideration","Preference","NPS"].forEach(o=>$("#pfKpiMetric").insertAdjacentHTML("beforeend",`<option>${o}</option>`));
+["Brand equity","Awareness","Consideration","Perception","Salience","Brand communication"].forEach(o=>$("#pfKpiMetric").insertAdjacentHTML("beforeend",`<option>${o}</option>`));
 $("#pfSalesMedia").onchange=e=>{S.bizMediaView=e.target.value;render();};
 $("#pfSalesLine").onchange=e=>{S.bizSalesMetric=e.target.value;render();};
 $("#pfKpiMedia").onchange=e=>{S.bizKpiMediaView=e.target.value;render();};
 $("#pfKpiMetric").onchange=e=>{S.bizKpi=e.target.value;render();};
 $$(".navbtn").forEach(b=>b.onclick=()=>goPage(b.dataset.pg));
-$$(".ucbtn").forEach(b=>b.onclick=()=>applyUC(b.dataset.uc));
+$$(".ucbtn").forEach(b=>b.onclick=()=>goPage(b.dataset.pg));
+["Split by channel","Total media","TV","OOH","Social","Display","Ecom"].forEach(o=>$("#uc1_media").insertAdjacentHTML("beforeend",`<option>${o}</option>`));
+["Sales value","Sales volume","Price per kg"].forEach(o=>$("#uc1_line").insertAdjacentHTML("beforeend",`<option>${o}</option>`));
+$("#uc1_media").onchange=e=>{S.uc1Media=e.target.value;render();};
+$("#uc1_line").onchange=e=>{S.uc1Line=e.target.value;render();};
+["Brand equity","Awareness","Consideration","Perception","Salience","Brand communication"].forEach(o=>$("#uc2_kpiSel").insertAdjacentHTML("beforeend",`<option>${o}</option>`));
+$("#uc2_kpiSel").onchange=e=>{S.uc2Kpi=e.target.value;render();};
+$("#uc2_ret").onchange=e=>{S.pfRetailer=e.target.value;render();};
+$("#uc2_promo").onchange=e=>{S.pfPromo=e.target.value;render();};
+$("#uc2_chan").onchange=e=>{S.pfRetChan=e.target.value;render();};
+["Brand equity","Awareness","Consideration","Perception","Salience","Brand communication"].forEach(o=>$("#uc3_kpiSel").insertAdjacentHTML("beforeend",`<option>${o}</option>`));
+["Split by channel","Total media","TV","OOH","Social","Display","Ecom"].forEach(o=>$("#uc3_media").insertAdjacentHTML("beforeend",`<option>${o}</option>`));
+["Sales value","Sales volume","Price per kg"].forEach(o=>$("#uc3_line").insertAdjacentHTML("beforeend",`<option>${o}</option>`));
+$("#uc3_kpiSel").onchange=e=>{S.uc3Kpi=e.target.value;render();};
+$("#uc3_media").onchange=e=>{S.uc3Media=e.target.value;render();};
+$("#uc3_line").onchange=e=>{S.uc3Line=e.target.value;render();};
 $("#resetBtn").onclick=resetView;
 $("#pfRetailer").onchange=e=>{S.pfRetailer=e.target.value;render();};
 $("#pfPromo").onchange=e=>{S.pfPromo=e.target.value;render();};
