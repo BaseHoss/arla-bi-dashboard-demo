@@ -111,6 +111,8 @@
   .ucstep b{color:var(--petrol);}
   .ucsig{display:flex; gap:14px; font-size:9px; flex-wrap:wrap;}
   .ucsig .good{color:var(--green);} .ucsig .flag{color:var(--red);}
+  .viz.focus{box-shadow:0 0 0 2px var(--sky), 0 3px 12px rgba(15,158,213,.22); border-color:var(--sky);}
+  #ucGuide{flex-direction:row; gap:8px;}
 
   /* ================= MOBILE (≤820px) — desktop untouched ================= */
   @media (max-width: 820px){
@@ -195,17 +197,18 @@
     <div id="content">
       <!-- ==================== BUSINESS PERFORMANCE ==================== -->
       <div class="page on" id="pg-biz">
+        <div class="pfbar hide" id="ucGuide" style="align-items:flex-start;"></div>
         <div class="kpirow" id="bizKpis"></div>
         <div class="grid rows" style="grid-template-columns:1fr 1fr; grid-auto-rows:252px;">
-          <div class="viz"><h3>Sales trend vs media spend</h3><div class="sub">Bars: media spend by selected view (AED K) · Line: selected sales metric</div>
+          <div class="viz" id="card-sales"><h3>Sales trend vs media spend</h3><div class="sub">Bars: media spend by selected view (AED K) · Line: selected sales metric</div>
             <div class="pf" style="position:absolute; right:10px; top:7px; gap:5px;"><select id="pfSalesMedia"></select><select id="pfSalesLine"></select></div>
             <div class="rowsplit"><div class="minis" id="bizMinis"></div><svg id="bizCombo"></svg></div></div>
-          <div class="viz"><h3><em id="bizKpiName">Brand equity</em> vs media spend</h3><div class="sub">Bars: media spend by selected view (AED K) · Line: selected brand KPI (Kantar BHT)</div>
+          <div class="viz" id="card-kpi"><h3><em id="bizKpiName">Brand equity</em> vs media spend</h3><div class="sub">Bars: media spend by selected view (AED K) · Line: selected brand KPI (Kantar BHT)</div>
             <div class="pf" style="position:absolute; right:10px; top:7px; gap:5px;"><select id="pfKpiMedia"></select><select id="pfKpiMetric"></select></div>
             <svg id="bizKpiCombo"></svg></div>
         </div>
         <div class="grid rows" style="grid-template-columns:1fr 1fr; grid-auto-rows:248px;">
-          <div class="viz"><h3>Retail sell-out by retailer · <em id="retScope">YTD</em> <span class="badge" style="margin-left:4px; vertical-align:middle;">EPOS</span></h3>
+          <div class="viz" id="card-ret"><h3>Retail sell-out by retailer · <em id="retScope">YTD</em> <span class="badge" style="margin-left:4px; vertical-align:middle;">EPOS</span></h3>
             <div class="sub"><span style="color:var(--petrol);">■</span> In-store &nbsp; <span style="color:#E0722F;">■</span> Online-only &nbsp;·&nbsp; EPOS sell-out, AED K</div>
             <div style="display:flex; gap:9px; align-items:center; margin:3px 0 1px;">
               <div class="pf"><label>Retailer</label><select id="pfRetailer"><option>All retailers</option><option>Panda</option><option>Othaim</option><option>Lulu</option><option>Carrefour</option><option>Danube</option><option>Noon</option><option>Talabat</option></select></div>
@@ -213,11 +216,11 @@
               <div class="pf"><label>Channel</label><select id="pfRetChan"><option>All</option><option>In-store</option><option>Online</option></select></div>
             </div>
             <svg id="eposRet"></svg></div>
-          <div class="viz"><h3>Share of voice &amp; competitive timing</h3><div class="sub">Monthly share of voice by competitor · 100% stacked · windowed to master period · TV/OOH monitoring</div><svg id="bizCompSov"></svg></div>
+          <div class="viz" id="card-sov"><h3>Share of voice &amp; competitive timing</h3><div class="sub">Monthly share of voice by competitor · 100% stacked · windowed to master period · TV/OOH monitoring</div><svg id="bizCompSov"></svg></div>
         </div>
         <div class="grid rows" style="grid-template-columns:1fr 1fr; grid-auto-rows:236px;">
-          <div class="viz"><h3>Promo vs non-promo sales · <em>monthly</em> <span class="badge" style="margin-left:4px; vertical-align:middle;">EPOS</span></h3><div class="sub">Promo share of sell-out — promo dependency watch</div><svg id="eposPromo"></svg></div>
-          <div class="viz" style="overflow:hidden;"><h3>Top SKUs by rate of sale · <em id="skuScope">YTD · all Puck</em> <span class="badge" style="margin-left:4px; vertical-align:middle;">EPOS</span></h3><div id="eposSkus" style="overflow:auto; flex:1; margin-top:4px;"></div></div>
+          <div class="viz" id="card-promo"><h3>Promo vs non-promo sales · <em>monthly</em> <span class="badge" style="margin-left:4px; vertical-align:middle;">EPOS</span></h3><div class="sub">Promo share of sell-out — promo dependency watch</div><svg id="eposPromo"></svg></div>
+          <div class="viz" id="card-sku" style="overflow:hidden;"><h3>Top SKUs by rate of sale · <em id="skuScope">YTD · all Puck</em> <span class="badge" style="margin-left:4px; vertical-align:middle;">EPOS</span></h3><div id="eposSkus" style="overflow:auto; flex:1; margin-top:4px;"></div></div>
         </div>
       </div>
       <!-- ==================== SALES ==================== -->
@@ -324,79 +327,6 @@
           <div class="viz"><h3>Brand equity variables · <em>vs last year</em></h3><div class="sub">Petrol: current · Grey: LY</div><svg id="hbVars"></svg></div>
           <div class="viz"><h3>Brand funnel · <em>KSA cheese tracker, Feb-26</em></h3><div class="sub">Kantar BHT wave 2 · % of respondents · unweighted, n=151 — read directionally</div><svg id="bhtFunnel"></svg></div>
           <div class="viz"><h3>Top-of-mind shift · <em>Jan → Feb 26</em></h3><div class="sub">TOM awareness by brand — Almarai slipping, Puck gaining</div><svg id="bhtTom"></svg></div>
-        </div>
-      </div>
-<!-- ==================== USE CASE 1 ==================== -->
-      <div class="page" id="pg-uc1">
-        <div class="uchead">
-          <span class="uctag">Use case 1 · test</span>
-          <h4>Did Ramadan media spend move volume, or just price and mix?</h4>
-          <div class="ucobj">Objective — confirm the Feb–Mar media step-up drove real demand, not just value inflation.</div>
-          <div class="ucsteps">
-            <div class="ucstep"><b>1.</b> Set media view to <b>Split by channel</b> — note which channels spiked in Feb–Mar.</div>
-            <div class="ucstep"><b>2.</b> Switch the line <b>Sales value → Sales volume</b>. Volume rising with spend = media working; flat volume while value climbs = price-led.</div>
-            <div class="ucstep"><b>3.</b> Switch the line to <b>Price per kg</b>. A rising price over the window would explain a value/volume gap.</div>
-            <div class="ucstep"><b>4.</b> Cross-check <b>MTD / YTD / MAT</b> — MTD should show the sharpest lift if Ramadan timing is captured.</div>
-          </div>
-          <div class="ucsig"><span class="good">&#10003; Good: volume &amp; value move together in the spike; price per kg stays roughly flat.</span><span class="flag">&#9650; Red flag: value up, volume flat, price up — a price-driven illusion of media effectiveness.</span></div>
-        </div>
-        <div class="grid rows" style="grid-template-columns:1fr; grid-auto-rows:300px;">
-          <div class="viz"><h3>Sales trend vs media spend</h3><div class="sub">Bars: media spend by selected view (AED K) · Line: selected sales metric</div>
-            <div class="pf" style="position:absolute; right:10px; top:7px; gap:5px;"><select id="uc1_media"></select><select id="uc1_line"></select></div>
-            <div class="rowsplit"><div class="minis" id="uc1_minis"></div><svg id="uc1_combo"></svg></div></div>
-        </div>
-      </div>
-      <!-- ==================== USE CASE 2 ==================== -->
-      <div class="page" id="pg-uc2">
-        <div class="uchead">
-          <span class="uctag">Use case 2 · test</span>
-          <h4>Is softer YoY growth a distribution problem or a brand problem?</h4>
-          <div class="ucobj">Objective — trace a YoY growth shortfall back to retail execution vs weakening brand health.</div>
-          <div class="ucsteps">
-            <div class="ucstep"><b>1.</b> Cycle the KPI through <b>Awareness, Consideration, Perception, Salience, Brand communication</b>. Note any KPI flat/declining while spend rises.</div>
-            <div class="ucstep"><b>2.</b> Check <b>Retail sell-out</b> — shortfall in a few retailers or spread evenly? Compare online (Noon, Talabat) vs in-store.</div>
-            <div class="ucstep"><b>3.</b> Check <b>Promo vs non-promo</b> — rising promo share with soft growth = volume bought through discounting.</div>
-            <div class="ucstep"><b>4.</b> On the <b>SKU table</b>, filter for OOS risk / heavy promo — a stock-out on a fast SKU can explain a soft month alone.</div>
-          </div>
-          <div class="ucsig"><span class="good">&#10003; Good: KPIs steady, promo share stable, no OOS on top SKUs — a demand/distribution gap to investigate.</span><span class="flag">&#9650; Red flag: KPIs also softening — the fix is upstream in messaging/media, not merchandising.</span></div>
-        </div>
-        <div class="grid rows" style="grid-template-columns:1fr 1fr; grid-auto-rows:224px;">
-          <div class="viz"><h3><em id="uc2_kpiName">Awareness</em> vs media spend</h3><div class="sub">Bars: media spend (AED K) · Line: selected brand KPI (Kantar BHT)</div>
-            <div class="pf" style="position:absolute; right:10px; top:7px;"><select id="uc2_kpiSel"></select></div>
-            <svg id="uc2_kpiSvg"></svg></div>
-          <div class="viz"><h3>Retail sell-out by retailer · <em id="uc2_retScope">YTD</em> <span class="badge" style="margin-left:4px; vertical-align:middle;">EPOS</span></h3>
-            <div class="sub"><span style="color:var(--petrol);">&#9632;</span> In-store &nbsp; <span style="color:#E0722F;">&#9632;</span> Online-only &nbsp;·&nbsp; AED K</div>
-            <div style="display:flex; gap:9px; align-items:center; margin:3px 0 1px;">
-              <div class="pf"><label>Retailer</label><select id="uc2_ret"><option>All retailers</option><option>Panda</option><option>Othaim</option><option>Lulu</option><option>Carrefour</option><option>Danube</option><option>Noon</option><option>Talabat</option></select></div>
-              <div class="pf"><label>Promo</label><select id="uc2_promo"><option>All sales</option><option>Promo</option><option>Non-promo</option></select></div>
-              <div class="pf"><label>Channel</label><select id="uc2_chan"><option>All</option><option>In-store</option><option>Online</option></select></div>
-            </div>
-            <svg id="uc2_retSvg"></svg></div>
-          <div class="viz"><h3>Promo vs non-promo sales · <em>monthly</em> <span class="badge" style="margin-left:4px; vertical-align:middle;">EPOS</span></h3><div class="sub">Promo share of sell-out — promo dependency watch</div><svg id="uc2_promoSvg"></svg></div>
-          <div class="viz" style="overflow:hidden;"><h3>Top SKUs by rate of sale · <em id="uc2_skuScope">YTD · all Puck</em> <span class="badge" style="margin-left:4px; vertical-align:middle;">EPOS</span></h3><div id="uc2_skus" style="overflow:auto; flex:1; margin-top:4px;"></div></div>
-        </div>
-      </div>
-      <!-- ==================== USE CASE 3 ==================== -->
-      <div class="page" id="pg-uc3">
-        <div class="uchead">
-          <span class="uctag">Use case 3 · test</span>
-          <h4>How long does a brand communication uplift take to reflect in sales?</h4>
-          <div class="ucobj">Objective — quantify the lag between a brand communication uplift and the sales uplift (the brand payback window).</div>
-          <div class="ucsteps">
-            <div class="ucstep"><b>1.</b> Set the KPI to <b>Brand communication</b> and find the sharpest step-up (an inflection, not drift). Record its month.</div>
-            <div class="ucstep"><b>2.</b> On sales trend, set the line to <b>Sales value</b>, then <b>Sales volume</b>, and find the month sales visibly accelerates.</div>
-            <div class="ucstep"><b>3.</b> Count the months between the comms inflection and the sales inflection — the observed lag.</div>
-            <div class="ucstep"><b>4.</b> Set sales media view to <b>Split by channel</b> — check whether a paid push (TV/Social) is driving a faster, separate response.</div>
-          </div>
-          <div class="ucsig"><span class="good">&#10003; Good: a consistent, repeatable lag (e.g. 2–3 months) across cycles — the brand payback window.</span><span class="flag">&#9650; Red flag: no pattern — sales moves independently, or only alongside paid activation.</span></div>
-        </div>
-        <div class="grid rows" style="grid-template-columns:1fr 1fr; grid-auto-rows:300px;">
-          <div class="viz"><h3><em id="uc3_kpiName">Brand communication</em> vs media spend</h3><div class="sub">Bars: media spend (AED K) · Line: selected brand KPI (Kantar BHT)</div>
-            <div class="pf" style="position:absolute; right:10px; top:7px;"><select id="uc3_kpiSel"></select></div>
-            <svg id="uc3_kpiSvg"></svg></div>
-          <div class="viz"><h3>Sales trend vs media spend</h3><div class="sub">Bars: media spend by selected view (AED K) · Line: selected sales metric</div>
-            <div class="pf" style="position:absolute; right:10px; top:7px; gap:5px;"><select id="uc3_media"></select><select id="uc3_line"></select></div>
-            <svg id="uc3_comboSvg"></svg></div>
         </div>
       </div>
     </div>
@@ -542,10 +472,7 @@ const CHSHARE={TV:0.34,OOH:0.10,Social:0.22,Display:0.18,Ecom:0.16};
 const SOVCOL={Almarai:"#E0722F",Puck:"#156082",Lurpak:"#0F9ED5",President:"#7E4A5A",NADEC:"#9A9A3E",Arla:"#156082",Others:"#B9BEC4"};
 function syncControls(){const set=(id,v)=>{const e=$("#"+id);if(e)e.value=v;};
   set("pfSalesMedia",S.bizMediaView);set("pfSalesLine",S.bizSalesMetric);
-  set("pfKpiMedia",S.bizKpiMediaView);set("pfKpiMetric",S.bizKpi);
-  set("uc1_media",S.uc1Media);set("uc1_line",S.uc1Line);
-  set("uc2_kpiSel",S.uc2Kpi);set("uc2_ret",S.pfRetailer);set("uc2_promo",S.pfPromo);set("uc2_chan",S.pfRetChan);
-  set("uc3_kpiSel",S.uc3Kpi);set("uc3_media",S.uc3Media);set("uc3_line",S.uc3Line);}
+  set("pfKpiMedia",S.bizKpiMediaView);set("pfKpiMetric",S.bizKpi);}
 function medBundle(){const med=series(D.media);const medW=win(med),mbc={};
   CHNAMES.forEach(cn=>{const sh=win(D.mediaChShare[cn]);mbc[cn]=medW.map((v,i)=>Math.round(v*sh[i]));});
   return {medW,mbc};}
@@ -600,18 +527,6 @@ function ucMinis(id){const sal=series(D.sales),salPY=series(D.salesPY);
     const a={MTD:sal[17],YTD:sal.slice(12,18).reduce((x,y)=>x+y,0),MAT:sal.slice(6,18).reduce((x,y)=>x+y,0)}[pp];
     const b={MTD:salPY[17],YTD:salPY.slice(12,18).reduce((x,y)=>x+y,0),MAT:salPY.slice(6,18).reduce((x,y)=>x+y,0)}[pp];
     return `<div class="mini"><div class="c">${pp}</div><div class="v">${fmtM(a)}</div><div class="d">▲ ${((a/b-1)*100).toFixed(1)}% vs LY</div></div>`;}).join("");}
-function renderUC1(){syncControls();const {medW,mbc}=medBundle();const L=lineForMetric(S.uc1Line);
-  mediaLineCombo("uc1_combo",{medByCh:mbc,medTot:medW,mediaView:S.uc1Media,line:L.line,linePY:L.linePY,lineName:L.name,lineFmt:L.fmt,lyFmt:L.lyfmt,lmin:L.lmin,flight:winFlight([13,14]),flightLabel:"Ramadan"});
-  ucMinis("uc1_minis");}
-function renderUC2(){syncControls();const {medW,mbc}=medBundle();
-  const bk=D.bht[S.uc2Kpi]||D.bht["Brand equity"];$("#uc2_kpiName").textContent=S.uc2Kpi;
-  mediaLineCombo("uc2_kpiSvg",{medByCh:mbc,medTot:medW,mediaView:"Total media",line:win(bk),linePY:null,lineName:S.uc2Kpi,lineFmt:v=>v.toFixed(1)+" idx",lmin:Math.min(...bk)-1.5,lyFmt:v=>v.toFixed(0)});
-  drawEpos({retSvg:"uc2_retSvg",promoSvg:"uc2_promoSvg",skuTbl:"#uc2_skus",retScope:"uc2_retScope",skuScope:"uc2_skuScope"});}
-function renderUC3(){syncControls();const {medW,mbc}=medBundle();
-  const bk=D.bht[S.uc3Kpi]||D.bht["Brand communication"];$("#uc3_kpiName").textContent=S.uc3Kpi;
-  mediaLineCombo("uc3_kpiSvg",{medByCh:mbc,medTot:medW,mediaView:"Total media",line:win(bk),linePY:null,lineName:S.uc3Kpi,lineFmt:v=>v.toFixed(1)+" idx",lmin:Math.min(...bk)-1.5,lyFmt:v=>v.toFixed(0)});
-  const L=lineForMetric(S.uc3Line);
-  mediaLineCombo("uc3_comboSvg",{medByCh:mbc,medTot:medW,mediaView:S.uc3Media,line:L.line,linePY:L.linePY,lineName:L.name,lineFmt:L.fmt,lyFmt:L.lyfmt,lmin:L.lmin});}
 function mediaLineCombo(id,o){
   const {s,w,h}=clearSVG(id);
   const view=o.mediaView||"Total media";const showLeg=(view==="Split by channel");
@@ -685,7 +600,7 @@ let S={pg:"biz",mk:"All markets",ct:"All categories",br:"All brands",from:6,to:1
        bhtMetric:"Consideration",salesMetric:"Value",multiType:"All",webType:"All",
        pfPlat:"All platforms",pfCamp:"All campaigns",pfObj:"All objectives",pfRmRet:"All retailers",pfRmPlc:"All placements",
        pfRetailer:"All retailers",pfPromo:"All sales",pfRetChan:"All",
-       uc1Media:"Split by channel",uc1Line:"Sales value",uc2Kpi:"Awareness",uc3Kpi:"Brand communication",uc3Media:"Split by channel",uc3Line:"Sales value"};
+       ucFocus:null};
 
 /* ===================== HELPERS ===================== */
 const $=q=>document.querySelector(q), $$=q=>document.querySelectorAll(q);
@@ -890,11 +805,18 @@ function renderBiz(){
    +kpi("Online sales contribution",onlineContrib+"%","2.4 pts vs LY",true,onlineSub);
   ucMinis("bizMinis");
   const L=lineForMetric(S.bizSalesMetric);
-  mediaLineCombo("bizCombo",{medByCh:mbc,medTot:medW,mediaView:S.bizMediaView,line:L.line,linePY:L.linePY,lineName:L.name,lineFmt:L.fmt,lyFmt:L.lyfmt,lmin:L.lmin});
+  mediaLineCombo("bizCombo",{medByCh:mbc,medTot:medW,mediaView:S.bizMediaView,line:L.line,linePY:L.linePY,lineName:L.name,lineFmt:L.fmt,lyFmt:L.lyfmt,lmin:L.lmin,flight:(S.ucFocus==="uc1")?winFlight([13,14]):null,flightLabel:"Ramadan"});
   const bk=D.bht[S.bizKpi]||D.bht["Brand equity"];$("#bizKpiName").textContent=S.bizKpi;
   mediaLineCombo("bizKpiCombo",{medByCh:mbc,medTot:medW,mediaView:S.bizKpiMediaView,line:win(bk),linePY:null,lineName:S.bizKpi,lineFmt:v=>v.toFixed(1)+" idx",lmin:Math.min(...bk)-1.5,lyFmt:v=>v.toFixed(0)});
   sovStack("bizCompSov",D.compSov,SOVCOL);
   drawEpos({retSvg:"eposRet",promoSvg:"eposPromo",skuTbl:"#eposSkus",retScope:"retScope",skuScope:"skuScope"});
+  const _cards=["card-sales","card-kpi","card-ret","card-sov","card-promo","card-sku"];
+  const _cfg=S.ucFocus?UCCFG[S.ucFocus]:null;
+  _cards.forEach(id=>{const e=$("#"+id);if(e)e.classList.toggle("focus",!!(_cfg&&_cfg.focus.includes(id)));});
+  const _g=$("#ucGuide");
+  if(_cfg){_g.classList.remove("hide");
+    _g.innerHTML=`<span class="badge">${PGNAMES[S.ucFocus].split(" \u2014 ")[0]}</span><b style="font-size:10px;color:var(--navy);margin-right:2px;">${_cfg.title}</b><span style="font-size:9px;color:var(--hgrey);flex:1;min-width:240px;line-height:1.4;"><b style="color:var(--petrol);">Steps:</b> ${_cfg.steps} &nbsp; <b style="color:var(--green);">\u2713 Good:</b> ${_cfg.good} &nbsp; <b style="color:var(--red);">\u25B2 Flag:</b> ${_cfg.flag}</span>`;}
+  else{_g.classList.add("hide");_g.innerHTML="";}
 }
 function renderSales(){
   const sal=series(D.sales),salPY=series(D.salesPY);
@@ -1007,19 +929,44 @@ function renderBrand(){
   grouped("bhtTom",D.bhtTracker.tom);
 }
 function render(){
-  ({biz:renderBiz,sales:renderSales,digital:renderDigital,multi:renderMulti,retail:renderRetail,web:renderWeb,comp:renderComp,brand:renderBrand,uc1:renderUC1,uc2:renderUC2,uc3:renderUC3}[S.pg])();
+  ({biz:renderBiz,sales:renderSales,digital:renderDigital,multi:renderMulti,retail:renderRetail,web:renderWeb,comp:renderComp,brand:renderBrand}[S.pg])();
   $("#ftrNote").textContent=`Filters: ${S.mk} · ${S.ct} · ${S.br} · ${perLbl()} | Sources: Nielsen · media platforms · TV/OOH monitoring · Kantar BHT · GA4 · EPOS retail | Illustrative sample data — demo only | Refreshed: 08 Jul 2026`;
 }
 
 /* ===================== NAV / STATE ===================== */
 const PGNAMES={biz:"Business Performance",sales:"Sales Performance (Nielsen)",digital:"Digital Media — digital only · deep dive",multi:"Multi-Media — online + offline",retail:"Retail Media & eCommerce",web:"Web Analytics — arla.com · GA4",comp:"Competitive Monitoring & Analysis",brand:"Brand Health (Kantar BHT)",uc1:"Use Case 1 — Volume vs price (Ramadan)",uc2:"Use Case 2 — Distribution vs brand",uc3:"Use Case 3 — Comms → sales lag"};
-function goPage(pg){S.pg=pg;$$(".page").forEach(p=>p.classList.remove("on"));$("#pg-"+pg).classList.add("on");
+const UCCFG={
+ uc1:{title:"Did Ramadan media spend move volume, or just price and mix?",
+   steps:"set media view = <b>Split by channel</b>; switch the line <b>Sales value \u2192 Sales volume \u2192 Price per kg</b>; cross-check the <b>MTD / YTD / MAT</b> cards.",
+   good:"volume &amp; value move together in the spike; price per kg stays roughly flat.",
+   flag:"value up, volume flat, price up \u2014 a price-driven illusion of media effectiveness.",
+   focus:["card-sales"]},
+ uc2:{title:"Is softer YoY growth a distribution problem or a brand problem?",
+   steps:"cycle the brand KPI <b>Awareness \u2192 Consideration \u2192 Perception \u2192 Salience \u2192 Brand communication</b>; check retailer sell-out spread, promo share, and OOS flags in the SKU table.",
+   good:"KPIs steady, promo share stable, no OOS on top SKUs \u2014 a demand/distribution gap.",
+   flag:"KPIs also softening \u2014 the fix is upstream in messaging/media, not merchandising.",
+   focus:["card-kpi","card-ret","card-promo","card-sku"]},
+ uc3:{title:"How long does a brand communication uplift take to reflect in sales?",
+   steps:"set the brand KPI = <b>Brand communication</b> and find the sharpest step-up; on sales trend switch <b>Sales value / Sales volume</b> and find where sales accelerates; count the months between (the lag).",
+   good:"a consistent, repeatable lag (e.g. 2\u20133 months) \u2014 the brand payback window.",
+   flag:"no pattern \u2014 sales moves independently, or only alongside paid activation.",
+   focus:["card-kpi","card-sales"]}};
+function applyUCPreset(uc){
+  if(uc==="uc1"){S.bizMediaView="Split by channel";S.bizSalesMetric="Sales value";}
+  else if(uc==="uc2"){S.bizKpi="Awareness";}
+  else if(uc==="uc3"){S.bizKpi="Brand communication";S.bizMediaView="Split by channel";S.bizSalesMetric="Sales value";}}
+function goPage(pg){
+  const isUC=/^uc[123]$/.test(pg);
+  S.ucFocus=isUC?pg:null;
+  if(isUC)applyUCPreset(pg);
+  const shown=isUC?"biz":pg;S.pg=shown;
+  $$(".page").forEach(p=>p.classList.remove("on"));$("#pg-"+shown).classList.add("on");
   $$(".navbtn,.ucbtn").forEach(b=>b.classList.toggle("on",b.dataset.pg===pg));
   $("#pgname").textContent=PGNAMES[pg];$("#content").scrollTop=0;render();}
 function resetView(){S.mk="All markets";S.ct="All categories";S.br="All brands";S.from=6;S.to=17;S.bizKpi="Brand equity";S.bizMediaView="Split by channel";S.bizSalesMetric="Sales value";S.bizKpiMediaView="Total media";S.pfRetailer="All retailers";S.pfPromo="All sales";S.pfRetChan="All";
-  S.uc1Media="Split by channel";S.uc1Line="Sales value";S.uc2Kpi="Awareness";S.uc3Kpi="Brand communication";S.uc3Media="Split by channel";S.uc3Line="Sales value";
+  S.ucFocus=null;
   $("#slMarket").value="All markets";$("#slCategory").value="All categories";$("#slBrand").value="All brands";
-  $("#slFrom").value=D.months[6];$("#slTo").value=D.months[17];buildSegs();render();}
+  $("#slFrom").value=D.months[6];$("#slTo").value=D.months[17];buildSegs();goPage("biz");}
 
 /* ===================== INIT ===================== */
 function fit(){const st=$("#stage");if(matchMedia("(max-width: 820px)").matches){st.style.transform="none";return;}
@@ -1053,21 +1000,6 @@ $("#pfKpiMetric").onchange=e=>{S.bizKpi=e.target.value;render();};
 $$(".navbtn").forEach(b=>b.onclick=()=>goPage(b.dataset.pg));
 ["img.logo",".ttl"].forEach(sel=>{const el=$("#hdr "+sel);if(el){el.style.cursor="pointer";el.title="Home \u2014 Business Performance";el.onclick=()=>goPage("biz");}});
 $$(".ucbtn").forEach(b=>b.onclick=()=>goPage(b.dataset.pg));
-["Split by channel","Total media","TV","OOH","Social","Display","Ecom"].forEach(o=>$("#uc1_media").insertAdjacentHTML("beforeend",`<option>${o}</option>`));
-["Sales value","Sales volume","Price per kg"].forEach(o=>$("#uc1_line").insertAdjacentHTML("beforeend",`<option>${o}</option>`));
-$("#uc1_media").onchange=e=>{S.uc1Media=e.target.value;render();};
-$("#uc1_line").onchange=e=>{S.uc1Line=e.target.value;render();};
-["Brand equity","Awareness","Consideration","Perception","Salience","Brand communication"].forEach(o=>$("#uc2_kpiSel").insertAdjacentHTML("beforeend",`<option>${o}</option>`));
-$("#uc2_kpiSel").onchange=e=>{S.uc2Kpi=e.target.value;render();};
-$("#uc2_ret").onchange=e=>{S.pfRetailer=e.target.value;render();};
-$("#uc2_promo").onchange=e=>{S.pfPromo=e.target.value;render();};
-$("#uc2_chan").onchange=e=>{S.pfRetChan=e.target.value;render();};
-["Brand equity","Awareness","Consideration","Perception","Salience","Brand communication"].forEach(o=>$("#uc3_kpiSel").insertAdjacentHTML("beforeend",`<option>${o}</option>`));
-["Split by channel","Total media","TV","OOH","Social","Display","Ecom"].forEach(o=>$("#uc3_media").insertAdjacentHTML("beforeend",`<option>${o}</option>`));
-["Sales value","Sales volume","Price per kg"].forEach(o=>$("#uc3_line").insertAdjacentHTML("beforeend",`<option>${o}</option>`));
-$("#uc3_kpiSel").onchange=e=>{S.uc3Kpi=e.target.value;render();};
-$("#uc3_media").onchange=e=>{S.uc3Media=e.target.value;render();};
-$("#uc3_line").onchange=e=>{S.uc3Line=e.target.value;render();};
 $("#resetBtn").onclick=resetView;
 $("#pfRetailer").onchange=e=>{S.pfRetailer=e.target.value;render();};
 $("#pfPromo").onchange=e=>{S.pfPromo=e.target.value;render();};
