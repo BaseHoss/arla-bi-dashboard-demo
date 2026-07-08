@@ -102,12 +102,12 @@
   table.pbimx td{padding:3px 6px; border-bottom:1px solid #EEF1F3; color:var(--body);}
   table.pbimx tr:nth-child(even) td{background:#F7F9FA;}
   .hide{display:none !important;}
-  .uctag{display:inline-block; font-size:8.5px; font-weight:700; color:#fff; background:var(--sky); border-radius:3px; padding:2px 6px; text-transform:uppercase; letter-spacing:.4px;}
-  .uchead{background:#F4FAFD; border:1px solid #CFE6F5; border-left:4px solid var(--sky); border-radius:8px; padding:8px 13px; flex:none;}
+  .uctag{display:inline-block; font-size:8.5px; font-weight:700; color:#fff; background:var(--tealmid); border-radius:3px; padding:2px 6px; text-transform:uppercase; letter-spacing:.4px; vertical-align:middle;}
+  .uchead{background:#fff; border:1px solid var(--line); border-radius:8px; padding:7px 12px; flex:none;}
   .uchead h4{font-size:13px; color:var(--navy); margin:4px 0 1px; line-height:1.2;}
   .uchead .ucobj{font-size:9.5px; color:var(--hgrey);}
   .ucsteps{display:flex; gap:7px; margin:7px 0 5px; flex-wrap:wrap;}
-  .ucstep{flex:1; min-width:160px; background:#fff; border:1px solid #DCEAF2; border-radius:6px; padding:5px 8px; font-size:9px; color:var(--body); line-height:1.35;}
+  .ucstep{flex:1; min-width:160px; background:#F5F8FA; border:1px solid #E6ECEF; border-radius:6px; padding:5px 8px; font-size:9px; color:var(--body); line-height:1.35;}
   .ucstep b{color:var(--petrol);}
   .ucsig{display:flex; gap:14px; font-size:9px; flex-wrap:wrap;}
   .ucsig .good{color:var(--green);} .ucsig .flag{color:var(--red);}
@@ -1052,6 +1052,7 @@ $("#pfSalesLine").onchange=e=>{S.bizSalesMetric=e.target.value;render();};
 $("#pfKpiMedia").onchange=e=>{S.bizKpiMediaView=e.target.value;render();};
 $("#pfKpiMetric").onchange=e=>{S.bizKpi=e.target.value;render();};
 $$(".navbtn").forEach(b=>b.onclick=()=>goPage(b.dataset.pg));
+["img.logo",".ttl"].forEach(sel=>{const el=$("#hdr "+sel);if(el){el.style.cursor="pointer";el.title="Home \u2014 Business Performance";el.onclick=()=>goPage("biz");}});
 $$(".ucbtn").forEach(b=>b.onclick=()=>goPage(b.dataset.pg));
 ["Split by channel","Total media","TV","OOH","Social","Display","Ecom"].forEach(o=>$("#uc1_media").insertAdjacentHTML("beforeend",`<option>${o}</option>`));
 ["Sales value","Sales volume","Price per kg"].forEach(o=>$("#uc1_line").insertAdjacentHTML("beforeend",`<option>${o}</option>`));
